@@ -30,6 +30,22 @@ public class Main {
                 System.out.println("No se puede dividir por cero");
             }
 
+            // 🔹 PAR / IMPAR del primer número
+            if (numero1 % 2 == 0) {
+                System.out.println("El primer numero es par");
+            } else {
+                System.out.println("El primer numero es impar");
+            }
+
+            // 🔹 POSITIVO / NEGATIVO / CERO del primer número
+            if (numero1 > 0) {
+                System.out.println("El primer numero es positivo");
+            } else if (numero1 < 0) {
+                System.out.println("El primer numero es negativo");
+            } else {
+                System.out.println("El primer numero es cero");
+            }
+
         } catch (NumberFormatException e) {
             System.out.println("Error: debes ingresar solo numeros");
         } finally {
@@ -37,4 +53,5 @@ public class Main {
         }
     }
 }
+
 
