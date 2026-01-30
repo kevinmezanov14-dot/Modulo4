@@ -1,4 +1,4 @@
-package f20260129;
+package com.alkemy.f20260129;
 import java.util.Scanner;
 public class Captura {
 
