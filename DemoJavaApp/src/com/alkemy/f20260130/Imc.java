@@ -7,17 +7,17 @@ public class Imc {
 
 		try {
 		    System.out.print("Ingresa tu peso en kg: ");
-		    double peso = Double.parseDouble(sc.nextLine());
+		    double peso = Double.parseDouble(sc.nextLine()); // Leer peso con decimales
 
 		    System.out.print("Ingresa tu talla en metros (ej: 1.70): ");
-		    double talla = Double.parseDouble(sc.nextLine());
+		    double talla = Double.parseDouble(sc.nextLine()); // Leer talla con decimales
 
 		    if (peso <= 0 || talla <= 0) {
 		        System.out.println("El peso y la talla deben ser mayores a 0");
 		        return;
 		    }
 
-		    double imc = peso / (talla * talla);
+		    double imc = peso / (talla * talla); // Calcular IMC con decimales
 
 		    System.out.printf("Tu IMC es: %.2f%n", imc); // Mostrar IMC con 2 decimales
 
