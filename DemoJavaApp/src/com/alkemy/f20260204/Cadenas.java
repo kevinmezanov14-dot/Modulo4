@@ -111,6 +111,7 @@ public class Cadenas {
 		System.out.println(Arrays.toString(correo.split("@")));
 		System.out.println(Arrays.toString(correo.trim().split("@")));
 		
+		//funcion replace EL CARACTER A REEMPLAZAR PRIMERO Y LUEGO DE LA (,) EL CARACTER NUEVO
 		String rut = "18.895.666-1";
 		rut = rut.replace(".", "").replace("-", "");
 		System.out.println(rut);
