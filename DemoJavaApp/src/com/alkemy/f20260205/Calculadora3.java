@@ -21,7 +21,7 @@ public class Calculadora3 {
             try {
                 opcion = sc.nextInt(); // lee la opcion seleccionada por el usuario
             } catch (Exception e) {
-                System.out.println("Error: Debe ingresar un numero.");
+                System.err.println("Error: Debe ingresar un numero.");
                 sc.nextLine(); // limpia el buffer del Scanner
                 continue; // vuelve a mostrar el menu
             }
@@ -32,7 +32,7 @@ public class Calculadora3 {
             }
 
             if (opcion < 1 || opcion > 4) {
-                System.out.println("Opcion invalida.");
+                System.err.println("Opcion invalida.");
                 continue; // vuelve a mostrar el menu
             }
 
@@ -117,7 +117,7 @@ public class Calculadora3 {
                 }
                 break;
             } catch (Exception e) {
-                System.out.println("Error: Debe ingresar un numero valido.");
+                System.err.println("Error: Debe ingresar un numero valido.");
                 sc.nextLine(); // limpia el buffer
             }
         }
@@ -133,7 +133,7 @@ public class Calculadora3 {
                     numeros.add(Double.parseDouble(entrada)); // agrega el numero a la lista
                     break;
                 } catch (Exception e) {
-                    System.out.println("Error: Debe ingresar un numero valido.");
+                    System.err.println("Error: Debe ingresar un numero valido.");
                 }
             }
         }
@@ -169,7 +169,7 @@ public class Calculadora3 {
         double resultado = numeros.get(0); // inicializa el resultado con el primer numero
         for (int i = 1; i < numeros.size(); i++) { // ciclo para dividir los numeros
             if (numeros.get(i) == 0) { // verifica si el numero es cero
-                System.out.println("Error: Division por cero."); // mensaje de error
+                System.err.println("Error: Division por cero."); // mensaje de error
                 return 0;
             }
             resultado /= numeros.get(i); // divide el resultado por el numero actual
