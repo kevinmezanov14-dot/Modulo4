@@ -3,6 +3,9 @@ package appay;
 /**
  * Representa una tarea dentro del sistema SmartTask.
  * Cada tarea tiene un id, nombre, prioridad y estado.
+ * @author kevin
+ * @version 1.0
+ * @since 2026-02-09
  */
 public class Task {
 
