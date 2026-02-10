@@ -26,6 +26,40 @@ public class Task {
         this.prioridad = prioridad;
         this.completada = false;
     }
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public int getPrioridad() {
+		return prioridad;
+	}
+
+	public void setPrioridad(int prioridad) {
+		this.prioridad = prioridad;
+	}
+
+	public boolean isCompletada() {
+		return completada;
+	}
+
+	public void setCompletada(boolean completada) {
+		this.completada = completada;
+	}
+    
 }
+
 
 
