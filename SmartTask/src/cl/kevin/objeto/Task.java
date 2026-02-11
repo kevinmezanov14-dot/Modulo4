@@ -1,4 +1,4 @@
-package appay;
+package cl.kevin.objeto;
 
 /**
  * Representa una tarea dentro del sistema SmartTask.

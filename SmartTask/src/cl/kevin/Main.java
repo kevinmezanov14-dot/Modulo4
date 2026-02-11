@@ -1,7 +1,10 @@
-package appay;
+package cl.kevin;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import cl.kevin.objeto.Task;
+import cl.kevin.utils.Utils;
 
 public class Main {
 

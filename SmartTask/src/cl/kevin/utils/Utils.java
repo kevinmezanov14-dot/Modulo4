@@ -1,4 +1,4 @@
-package appay;
+package cl.kevin.utils;
 
 import java.util.Scanner;
 
