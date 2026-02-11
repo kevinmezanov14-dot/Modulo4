@@ -48,12 +48,12 @@ public class Cuenta {
         return numeroCuenta;
     }
 
-    @Override
-    public String toString() {
-        return "Cuenta: " + numeroCuenta +
-                " | Alias: " + alias +
-                " | Balance: " + balance +
-                " | Cliente: " + cliente;
-    }
+	@Override
+	public String toString() {
+		return "Cuenta [alias=" + alias + ", numeroCuenta=" + numeroCuenta + ", balance=" + balance + ", cliente="
+				+ cliente + "]";
+	}
+
+
 }
 

@@ -16,13 +16,14 @@ public class Cliente {
 		this.direccion = direccion;
 		this.dni = dni;
 	}
-	// metodo del diagrama no se usa el cliente original= cliente nuevo porque se perderian los datos
-    public void actualizarDatos(Cliente clienteVO) { // cliente nuevo ahora mis datos seran estos
-        this.nombre = clienteVO.nombre;
-        this.apellido = clienteVO.apellido;
-        this.direccion = clienteVO.direccion;
-        this.dni = clienteVO.dni;
-    }
+	// metodo del diagrama no se usa el cliente original 
+	public void actualizarDatos(Cliente clienteVO) {
+	    this.setNombre(clienteVO.getNombre());
+	    this.setApellido(clienteVO.getApellido());
+	    this.setDireccion(clienteVO.getDireccion());
+	    this.setDni(clienteVO.getDni());
+	}
+
 
 	// metodo
 	public String getNombre() {
