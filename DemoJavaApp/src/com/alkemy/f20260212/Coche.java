@@ -1,42 +1,39 @@
-package com.alkemy.f20260210;
+package com.alkemy.f20260212;
 /**
  * Molde o plantilla
  */
 public class Coche {
 	//atributos
-	String color;
-	String marca;
-	String modelo;
-	String combustible;
+	protected String color;
+	protected String marca;
+	protected String modelo;
+	protected String combustible;
 	//constructores
 	//permite asignar valores iniciales a los atributos (estado)
 	//constructor vacio, asignar o cambiar el estado a posterior
-	public Coche() {
-	}
-	public Coche(String color, String marca, String modelo) {
-		this.color = color;
-		this.marca = marca;
-		this.modelo = modelo;
-	}
-	public Coche(String marca, String modelo) {
-		this.marca = marca;
-		this.modelo = modelo;
-	}
+	
+	
 	public Coche(String color, String marca, String modelo, String combustible) {
+		super();
 		this.color = color;
 		this.marca = marca;
 		this.modelo = modelo;
 		this.combustible = combustible;
 	}
-	//metodos Getters and setters
-	//accesador y mutador
+	public Coche() {
+		super();
+	}
+	// metodo
+	
+	public void encender() {
+		System.out.println("el coche ya esta encendido");
+	}
 	public String getColor() {
 		return color;
 	}
 	public void setColor(String color) {
 		this.color = color;
 	}
-	
 	public String getMarca() {
 		return marca;
 	}
@@ -56,9 +53,6 @@ public class Coche {
 		this.combustible = combustible;
 	}
 	
-
-	
 	
 }
-
 

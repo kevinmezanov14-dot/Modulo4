@@ -9,10 +9,10 @@ package cl.kevin.objeto;
  */
 public class Task {
 
-    int id;              // identificador de la tarea
-    String nombre;       // nombre de la tarea
-    int prioridad;       // prioridad (1 = alta, 2 = media, 3 = baja)
-    boolean completada;  // estado de la tarea
+    private int id;              // identificador de la tarea
+    private String nombre;       // nombre de la tarea
+    private int prioridad;       // prioridad (1 = alta, 2 = media, 3 = baja)
+    private boolean completada;  // estado de la tarea
 
     /**
      * Constructor de la clase Tarea
@@ -31,9 +31,9 @@ public class Task {
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
+	//public void setId(int id) {
+		//this.id = id;
+	//}
 
 	public String getNombre() {
 		return nombre;
