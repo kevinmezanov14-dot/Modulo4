@@ -1,40 +1,59 @@
 package Clases;
 
-public class Gato extends Animal {
+public class Gato extends Animal{
+	//atributos
+	private String raza;
+	//constructores
+	public Gato(String nombre, double peso) {
+		super(nombre, peso);
+	}
 
-    private String raza;
+	public Gato(String nombre, double peso, String raza) {
+		super(nombre, peso);
+		setRaza(raza);
+	}
 
-    public Gato(String nombre, double peso, String raza) {
-        super(nombre, peso);
-        this.raza = raza;
-    }
+	public String getRaza() {
+		return raza;
+	}
 
-    public String getRaza() {
-        return raza;
-    }
+	public void setRaza(String raza) {
+		if(raza == null || raza.trim().isEmpty()) {
+			System.err.println("Error en el ingreso de la raza");
+			throw new IllegalArgumentException("Error en el ingreso de la raza");
+		}
+		this.raza = raza.trim();
+	}
+	//metodos
 
-    public void setRaza(String raza) {
-        this.raza = raza;
-    }
-    // comportamiento del padre
-    @Override
-    public void comer() {
-        super.comer(); // llama al método de Animal
-    }
+	@Override
+	public String hacerRuido() {
+		return "Miau";
+	}
 
-    @Override
-    public void dormir() {
-        super.dormir(); // llama al método de Animal
-    }
+	@Override
+	public void moverse() {
+		// TODO Auto-generated method stub
+		
+	}
 
-    //  comportamiento
-    @Override
-    public String emitirSonido() {
-        return "Miau";
-    }
+	@Override
+	public void comer() {
+		// TODO Auto-generated method stub
+		
+	}
 
-    @Override
-    public String mostrarDatos() {
-        return super.mostrarDatos() + " y su raza es: " + raza;
-    }
+	@Override
+	public void dormir() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String toString() {
+		return super.toString() + " raza=" + raza ;
+	}
+
+
+
 }

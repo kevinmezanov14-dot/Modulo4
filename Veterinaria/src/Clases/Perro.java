@@ -1,43 +1,62 @@
 package Clases;
 
-public class Perro extends Animal {
+/**
+ * Subclase de la clase padre Animal
+ */
+public class Perro extends Animal{
+//atributo
+	private String raza;
+//constructor
+	public Perro(String nombre, double peso, String raza) {
+		super(nombre, peso);
+		setRaza(raza);
+	}
+//get and set
+	public String getRaza() {
+		return raza;
+	}
 
-    private String raza;
+	public void setRaza(String raza) {
+		if(raza == null || raza.trim().isEmpty()) {
+			System.err.println("Error en el ingreso de la raza");
+			throw new IllegalArgumentException("Error en el ingreso de la raza");
+		}
+		this.raza = raza.trim();
+	}
+//metodos
+	@Override
+	public String hacerRuido() {
+		return "Guau";
+	}
 
-    public Perro(String nombre, double peso, String raza) {
-        super(nombre, peso);
-        this.raza = raza;
-    }
+	@Override
+	public void moverse() {
+		System.out.println("Es un cuadrupedo");
+		
+	}
 
-    public String getRaza() {
-        return raza;
-    }
+	@Override
+	public void comer() {
+		System.out.println("Carnivoro y mueve la cola");
+	}
 
-    public void setRaza(String raza) {
-        this.raza = raza;
-    }
+	@Override
+	public void dormir() {
+		System.out.println("Duermen mas de 12 horas");
+	}
 
-    // comportamiento del padre
-    @Override
-    public void comer() {
-        super.comer(); // llama al método de Animal
-    }
+	@Override
+	public String toString() {
+		//super.toString();
+		String mensaje = "Mi Perro se llama " +super.getNombre()+
+				", su raza es: "+ raza + " y pesa: " + super.getPeso() +" kilos.";
+		return mensaje;
+	}
 
-    @Override
-    public void dormir() {
-        super.dormir(); // llama al método de Animal
-    }
 
-    //  comportamiento
-    @Override
-    public String emitirSonido() {
-        return "Guau";
-    }
 
-    @Override
-    public String mostrarDatos() {
-        return super.mostrarDatos() + " y su raza es: " + raza;
-    }
+
+
 }
 
 

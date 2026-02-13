@@ -1,165 +1,169 @@
 package cl.kevin;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import cl.kevin.objeto.Task;
+import cl.kevin.objeto.TareaNormal;
+import cl.kevin.objeto.TareaUrgente;
+import cl.kevin.servicio.GestorTareas;
 import cl.kevin.utils.Utils;
 
+/**
+ * Clase principal de la aplicación SmartTask.
+ * Solo maneja la interacción con el usuario (UI de consola).
+ * La lógica del sistema está delegada a GestorTareas.
+ */
 public class Main {
 
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-        ArrayList<Task> tareas = new ArrayList<>();
+        GestorTareas gestor = new GestorTareas();
+
         int contadorId = 1;
         boolean continuar = true;
 
         do {
             mostrarMenu();
 
-            int opcion = Utils.leerEnteroSeguro(sc, "Seleccione una opcion (0-4): ");
+            int opcion = Utils.leerEnteroSeguro(sc, "Seleccione una opción (0-4): ");
 
             switch (opcion) {
+
                 case 1:
-                    agregarTarea(sc, tareas, contadorId);
-                    contadorId++;
+                    contadorId = agregarTarea(sc, gestor, contadorId);
                     break;
 
                 case 2:
-                    listarTareas(tareas);
+                    listarTareas(gestor);
                     break;
 
                 case 3:
-                    marcarComoCompletada(sc, tareas);
+                    marcarComoCompletada(sc, gestor);
                     break;
 
                 case 4:
-                    eliminarTarea(sc, tareas);
+                    eliminarTarea(sc, gestor);
                     break;
 
                 case 0:
                     continuar = false;
-                    System.out.println("Saliendo de SmartTask.");
+                    System.out.println("Saliendo de SmartTask...");
                     break;
 
                 default:
-                    System.err.println("Opcion invalida.");
+                    System.err.println("Opción inválida.");
             }
 
         } while (continuar);
 
         sc.close();
     }
-    // ===================== MENU =====================
+
+    // ===================== MENÚ =====================
 
     public static void mostrarMenu() {
-        System.out.println(" ╔═════════════════════════════════╗");
-        System.out.println(" ║          SMART TASK             ║");
-        System.out.println(" ╠═════════════════════════════════╣");
-        System.out.println(" ║ 0. Salir                        ║");
-        System.out.println(" ║ 1. Agregar tarea                ║");
-        System.out.println(" ║ 2. Listar tareas                ║");
-        System.out.println(" ║ 3. Marcar tarea como completada ║");
-        System.out.println(" ║ 4. Eliminar tarea               ║");
-        System.out.println(" ╚═════════════════════════════════╝");
+        System.out.println("\n╔═════════════════════════════════╗");
+        System.out.println("║          SMART TASK             ║");
+        System.out.println("╠═════════════════════════════════╣");
+        System.out.println("║ 0. Salir                        ║");
+        System.out.println("║ 1. Agregar tarea                ║");
+        System.out.println("║ 2. Listar tareas                ║");
+        System.out.println("║ 3. Marcar como completada       ║");
+        System.out.println("║ 4. Eliminar tarea               ║");
+        System.out.println("╚═════════════════════════════════╝");
     }
 
-    // ===================== FUNCIONES =====================
+    // ===================== AGREGAR =====================
 
-    public static void agregarTarea(Scanner sc, ArrayList<Task> tareas, int id) {
-
-        sc.nextLine(); // limpiar buffer antes de leer texto
+    public static int agregarTarea(Scanner sc, GestorTareas gestor, int idActual) {
 
         System.out.print("Ingrese nombre de la tarea: ");
         String nombre = sc.nextLine().trim();
 
         if (nombre.isEmpty()) {
-            System.err.println("Debe ingresar nombre.");
-            return;
+            System.err.println("El nombre no puede estar vacío.");
+            return idActual;
         }
 
         int prioridad = Utils.leerEnteroSeguro(
-            sc,
-            "Ingrese prioridad (1-Alta, 2-Media, 3-Baja): "
+                sc,
+                "Ingrese prioridad (1-Alta [Urgente], 2-Media, 3-Baja): "
         );
 
-        Task nueva = new Task(id, nombre, prioridad);
-        tareas.add(nueva);
+        Task nueva;
+
+        // POLIMORFISMO
+        if (prioridad == 1) {
+            nueva = new TareaUrgente(idActual, nombre);
+        } else {
+            nueva = new TareaNormal(idActual, nombre, prioridad);
+        }
+
+        gestor.agregar(nueva);
 
         System.out.println("Tarea agregada correctamente.");
+        return idActual + 1;
     }
 
+    // ===================== LISTAR =====================
 
-    public static void listarTareas(ArrayList<Task> tareas) {
+    public static void listarTareas(GestorTareas gestor) {
 
-        if (tareas.isEmpty()) {
+        if (gestor.estaVacia()) {
             System.out.println("No hay tareas registradas.");
             return;
         }
 
         System.out.println("\n═════════ LISTA DE TAREAS ═════════");
 
-        for (Task t : tareas) {
+        for (Task t : gestor.listar()) {
+
             String estado = t.isCompletada() ? "SI" : "NO";
 
             System.out.println(
-                "ID: " + t.getId() +
-                " | Nombre: " + t.getNombre() +
-                " | Prioridad: " + t.getPrioridad() +
-                " | Completada: " + estado
+                    "ID: " + t.getId() +
+                    " | Nombre: " + t.getNombre() +
+                    " | Tipo: " + t.tipoTarea() +
+                    " | Prioridad: " + t.getPrioridad() +
+                    " | Completada: " + estado
             );
         }
 
         System.out.println("══════════════════════════════════\n");
     }
 
-    public static void marcarComoCompletada(Scanner sc, ArrayList<Task> tareas) {
-    	// validar si hay tareas
-    	if (tareas.isEmpty()) {
-    	    System.out.println("No hay tareas registradas.");
-    	    return;
-    	}
+    // ===================== COMPLETAR =====================
 
+    public static void marcarComoCompletada(Scanner sc, GestorTareas gestor) {
 
-        int id = Utils.leerEnteroSeguro(sc, "Ingrese ID de la tarea: ");
-
-        for (Task t : tareas) {
-            if (t.getId() == id) {
-
-                if (t.isCompletada()) {
-                    System.out.println("La tarea ya está completada.");
-                } else {
-                    t.setCompletada(true);
-                    System.out.println("Tarea marcada como completada.");
-                }
-                return;
-            }
+        if (gestor.estaVacia()) {
+            System.out.println("No hay tareas registradas.");
+            return;
         }
 
-        System.err.println("Tarea no encontrada.");
+        int id = Utils.leerEnteroSeguro(sc, "Ingrese ID de la tarea: ");
+        gestor.marcarComoCompletada(id);
+
+        System.out.println("Operación realizada.");
     }
 
-    public static void eliminarTarea(Scanner sc, ArrayList<Task> tareas) {
-        //  Validar si hay tareas
-        if (tareas.isEmpty()) {
+    // ===================== ELIMINAR =====================
+
+    public static void eliminarTarea(Scanner sc, GestorTareas gestor) {
+
+        if (gestor.estaVacia()) {
             System.out.println("No hay tareas para eliminar.");
             return;
         }
-        // leer ID de forma segura
+
         int id = Utils.leerEnteroSeguro(sc, "Ingrese ID de la tarea a eliminar: ");
-        // buscar y eliminar
-        for (int i = 0; i < tareas.size(); i++) { // i es el indice tareas.size me devuelve cuantas tareas hay y el i++ pasa a la siguiente
-        	if (tareas.get(i).getId() == id) { // compara el id ingresado con el de la tarea si coincide se encuentra la tarea
-        		tareas.remove(i); // elimina la tarea en la posición i y se desplaza todas las otras
-        		System.out.println("Tarea eliminada correctamente.");
-        		return;
-        	}
-        }
-        // si no se encontro la tarea
-        System.err.println("Tarea no encontrada.");
+        gestor.eliminar(id);
+
+        System.out.println("Si el ID existía, la tarea fue eliminada.");
     }
 }
+
 
 
 

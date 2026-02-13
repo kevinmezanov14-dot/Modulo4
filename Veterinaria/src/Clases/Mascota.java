@@ -1,9 +1,11 @@
 package Clases;
-// Interfaz para definir metodos
+
+/**
+ * Interface para definir metodos
+ */
 public interface Mascota {
-	String hacerRuido(); // definir el metodo
+
+	String hacerRuido();//definir un metodo
 	void comer();
 	void moverse();
-	
-
 }

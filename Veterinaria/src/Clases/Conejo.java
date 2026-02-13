@@ -1,23 +1,30 @@
 package Clases;
 
-public class Conejo implements Mascota {
+public class Conejo extends Animal{
+
+	public Conejo(String nombre, double peso) {
+		super(nombre, peso);
+	}
 
 	@Override
 	public String hacerRuido() {
-		// TODO Auto-generated method stub
-		return "coui coui";
+		return "yiiiiiii";
 	}
 
 	@Override
 	public void comer() {
-		System.out.println("El conejo se prepara para la hora del platano, chi cheñol");
+		System.out.println("El conejo come zanahorias");
 		
 	}
 
 	@Override
 	public void moverse() {
-		System.out.println("Salta");
+		// TODO Auto-generated method stub
 		
+	}
+
+	public void dormir() {
+		System.out.println("Tiempo de dormir");
 	}
 
 }

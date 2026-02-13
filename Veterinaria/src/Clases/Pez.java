@@ -1,22 +1,31 @@
 package Clases;
 
-public class Pez implements Mascota {
+public class Pez extends Animal{
+
+	public Pez(String nombre, double peso) {
+		super(nombre, peso);
+	}
 
 	@Override
 	public String hacerRuido() {
-		// TODO Auto-generated method stub
-		return "glup-glup";
+		return "Gluuup";
 	}
 
 	@Override
 	public void comer() {
-		System.out.println("El pez bebe");
+		System.out.println("El pez come algas");
 		
 	}
 
 	@Override
 	public void moverse() {
-		System.out.println();
+		System.out.println("El pez nada");
+		
+	}
+
+	@Override
+	public void dormir() {
+		// TODO Auto-generated method stub
 		
 	}
 
