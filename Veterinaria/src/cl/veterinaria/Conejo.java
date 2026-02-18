@@ -1,6 +1,6 @@
 package cl.veterinaria;
 
-import Clases.Animal;
+import cl.veterinaria.clases.Animal;
 
 public class Conejo extends Animal {
 

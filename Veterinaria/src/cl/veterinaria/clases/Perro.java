@@ -1,4 +1,4 @@
-package Clases;
+package cl.veterinaria.clases;
 
 /**
  * Subclase de la clase padre Animal

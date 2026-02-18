@@ -14,11 +14,10 @@ import cl.kevin.servicio.GestorTareas;
 /**
  * Suite de pruebas unitarias para GestorTareas.
  * Aquí verificamos que el CRUD funcione correctamente:
- * - Crear (agregar)
- * - Leer (listar)
- * - Actualizar (marcar completada)
- * - Eliminar
- *
+ * Crear (agregar)
+ * Leer (listar)
+ * Actualizar (marcar completada)
+ * Eliminar
  */
 class GestorTareasTest {
 
@@ -30,9 +29,12 @@ class GestorTareasTest {
     private Task tarea2;
 
     /**
-     * @BeforeEach se ejecuta ANTES de cada @Test.
-     * Esto garantiza que cada prueba comience con un estado limpio.
-     * Evita que una prueba afecte a otra.
+     * Inicializa un nuevo GestorTareas antes de cada prueba.
+     *
+     * Esto asegura:
+     * Aislamiento entre tests (principio de independencia).
+     * Repetibilidad de resultados.
+     * Que no exista estado compartido entre ejecuciones.
      */
     @BeforeEach
     void setup() {
@@ -42,6 +44,14 @@ class GestorTareasTest {
         tarea1 = new TareaNormal(1, "Estudiar JUnit", 2);
         tarea2 = new TareaUrgente(2, "Entrega hoy");
     }
+    /**
+     * No se requiere @AfterEach porque:
+     * No usamos base de datos.
+     * No abrimos archivos.
+     * No hay conexiones de red.
+     * No existen recursos externos que liberar.
+     *
+     * Todas las pruebas trabajan únicamente en memoria.
 
     // ========================= ESTADO INICIAL =========================
 
@@ -83,6 +93,11 @@ class GestorTareasTest {
 
         assertEquals(2, gestor.listar().size());
     }
+    /**
+     * Verifica que el sistema cree automáticamente una TareaUrgente
+     * cuando se solicita la creación de una tarea con prioridad 1 (Alta).
+     * La tarea creada debe identificarse como "Urgente".
+     */
     @Test
     void crearTareaUrgenteTest() {
 
@@ -90,6 +105,18 @@ class GestorTareasTest {
 
         assertEquals("Urgente", gestor.listar().get(0).tipoTarea());
     }
+    /**
+     * Verifica que el sistema lance una IllegalArgumentException
+     * cuando se intenta crear una tarea con un nombre vacío o nulo.
+     */
+
+    @Test
+    void crearTareaConPrioridadInvalidaDebeLanzarExcepcion() {
+        assertThrows(IllegalArgumentException.class,
+            () -> gestor.crearTarea("Prueba", 99));
+    }
+
+
 
 
     // ========================= LISTAR =========================

@@ -3,35 +3,55 @@ package cl.kevin.utils;
 import java.util.Scanner;
 
 /**
- * Clase utilitaria.
- * Contiene métodos reutilizables para entrada segura por consola.
- * No representa un objeto.
+ * Clase utilitaria del sistema.
+ *
+ * Contiene métodos auxiliares reutilizables relacionados con la
+ * interacción por consola, evitando duplicar lógica en otras clases.
+ *
+ * No representa una entidad del dominio, por lo que:
+ * - No debe instanciarse.
+ * - Todos sus métodos son estáticos.
  */
-public class Utils {
+public final class Utils {
 
     /**
-     * Lee un número entero de forma segura desde consola.
-     * Repite la pregunta hasta que el usuario ingrese un número válido.
+     * Constructor privado para evitar la creación de instancias.
+     * Esta clase solo debe usarse de forma estática.
+     */
+    private Utils() {
+        // Previene instanciación accidental
+    }
+
+    /**
+     * Lee un número entero de forma segura desde la consola.
+     *
+     * El método valida la entrada del usuario y repite la solicitud
+     * hasta que se ingrese un valor numérico correcto, evitando que
+     * la aplicación termine por InputMismatchException.
+     *
+     * Además limpia el buffer del Scanner después de cada lectura,
+     * previniendo errores comunes al mezclar nextInt() y nextLine().
      *
      * @param sc Scanner utilizado para leer la entrada
-     * @param mensaje Mensaje que se muestra al usuario
+     * @param mensaje texto mostrado al usuario solicitando el dato
      * @return número entero válido ingresado por el usuario
      */
     public static int leerEnteroSeguro(Scanner sc, String mensaje) {
 
-        while (true) { // se repite hasta que el ingreso sea válido
+        while (true) { // se repite hasta obtener un valor válido
             System.out.print(mensaje);
 
             try {
                 int valor = sc.nextInt(); // intenta leer un entero
-                sc.nextLine(); // limpia el buffer
-                return valor; // sale del método con un valor válido
+                sc.nextLine();           // limpia el buffer pendiente
+                return valor;
 
             } catch (Exception e) {
                 System.err.println("Error: debe ingresar un número.");
-                sc.nextLine(); // limpiar buffer para evitar bucle infinito
+                sc.nextLine(); // limpia buffer para evitar bucle infinito
             }
         }
     }
 }
+
 

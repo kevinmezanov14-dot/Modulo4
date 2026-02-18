@@ -6,21 +6,42 @@ import cl.kevin.servicio.GestorTareas;
 import cl.kevin.utils.Utils;
 
 /**
- * Clase principal (Capa de Presentación).
- * Solo se encarga de:
- *  - Mostrar menú
- *  - Leer datos del usuario
- *  - Llamar al servicio GestorTareas
+ * Punto de entrada de la aplicación SmartTask.
  *
- * NO contiene lógica de negocio.
+ * Esta clase representa la CAPA DE PRESENTACIÓN (UI por consola).
+ * Su única responsabilidad es interactuar con el usuario:
+ *
+ * Mostrar el menú
+ * Leer datos desde consola
+ * Delegar las operaciones al servicio GestorTareas
+ * 
+ *
+ * No contiene lógica de negocio ni reglas del sistema.
+ * Todas las decisiones (creación de tareas, validaciones, IDs, etc.)
+ * se encuentran en la capa de servicio.
+ *
+ * Este diseño aplica el principio de Separación de Responsabilidades (SRP),
+ * permitiendo que la UI pueda cambiar sin afectar la lógica interna.
+ * 
+ * @author Kevin
+ * @version 1.0
+ * @since 2026
  */
 public class Main {
+	
+	/**
+	 * Método principal que inicia la aplicación.
+	 *
+	 * Controla el ciclo de vida del programa:
+	 * Crea los recursos necesarios (Scanner y GestorTareas)
+	 * Muestra el menú en bucle
+	 * Deriva la acción seleccionada al método correspondiente
+	 * Finaliza cuando el usuario decide salir
+	 */
 
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-
-        // El gestor contiene TODA la lógica del sistema
         GestorTareas gestor = new GestorTareas();
 
         boolean continuar = true;
@@ -63,7 +84,13 @@ public class Main {
     }
 
     // ===================== UI: MENÚ =====================
-
+    
+    /**
+     * Muestra el menú principal de opciones al usuario.
+     *
+     * Solo imprime información en pantalla.
+     * No contiene ninguna lógica del sistema.
+     */
     public static void mostrarMenu() {
         System.out.println("\n╔═════════════════════════════════╗");
         System.out.println("║          SMART TASK             ║");
@@ -79,9 +106,16 @@ public class Main {
     // ===================== UI: AGREGAR =====================
 
     /**
-     * Solo recoge datos del usuario y delega la acción al gestor.
+     * Solicita los datos necesarios para crear una tarea y delega
+     * la operación al GestorTareas.
+     *
+     * Este método NO decide qué tipo de tarea se crea.
+     * Esa responsabilidad pertenece a la capa de negocio.
+     *
+     * @param sc      Scanner usado para leer desde consola
+     * @param gestor  Servicio que gestiona las tareas
      */
-    public static void agregarTarea(Scanner sc, GestorTareas gestor) {
+    public static void agregarTarea(Scanner sc, GestorTareas gestor) { 
 
         System.out.print("Ingrese nombre de la tarea: ");
         String nombre = sc.nextLine();
@@ -91,16 +125,24 @@ public class Main {
                 "Ingrese prioridad (1-Alta, 2-Media, 3-Baja): "
         );
 
-        try {
+        try {// Delegamos la regla de negocio al gestor y si no es valida la prioridad el programa no se cae.
             gestor.crearTarea(nombre, prioridad);
             System.out.println("Tarea creada correctamente.");
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) { // si el usuario ingresa una prioridad inválida lanza el mensaje de error.
             System.err.println(e.getMessage());
         }
     }
 
     // ===================== UI: LISTAR =====================
-
+    
+    /**
+     * Muestra todas las tareas registradas.
+     *
+     * Obtiene los datos desde el gestor y los formatea para su
+     * visualización en consola. No modifica el estado del sistema.
+     *
+     * @param gestor servicio que contiene las tareas
+     */
     public static void listarTareas(GestorTareas gestor) {
 
         if (gestor.estaVacia()) {
@@ -110,8 +152,8 @@ public class Main {
 
         System.out.println("\n═════════ LISTA DE TAREAS ═════════");
 
-        gestor.listar().forEach(t -> {
-            String estado = t.isCompletada() ? "SI" : "NO";
+        gestor.listar().forEach(t -> { // recorro la lista
+            String estado = t.isCompletada() ? "SI" : "NO"; 
 
             System.out.println(
                     "ID: " + t.getId() +
@@ -126,6 +168,14 @@ public class Main {
     }
 
     // ===================== UI: COMPLETAR =====================
+    
+    /**
+     * Solicita el ID de una tarea y delega la actualización al gestor.
+     *
+     * @param sc      Scanner de entrada
+     * @param gestor  servicio de negocio
+     */
+
 
     public static void marcarComoCompletada(Scanner sc, GestorTareas gestor) {
 
@@ -136,6 +186,16 @@ public class Main {
     }
 
     // ===================== UI: ELIMINAR =====================
+    
+    /**
+     * Solicita el ID de una tarea a eliminar y delega la operación.
+     *
+     * La validación y eliminación real son responsabilidad del gestor.
+     *
+     * @param sc      Scanner de entrada
+     * @param gestor  servicio de negocio
+     */
+
 
     public static void eliminarTarea(Scanner sc, GestorTareas gestor) {
 

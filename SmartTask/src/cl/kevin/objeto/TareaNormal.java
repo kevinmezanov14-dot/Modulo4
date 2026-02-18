@@ -6,15 +6,24 @@ package cl.kevin.objeto;
  */
 public class TareaNormal extends Task {
 
+
     /**
-     * Constructor que permite definir prioridad libremente.
+     * Crea una tarea normal con prioridad configurable.
+     *
+     * @param id identificador único generado por el sistema
+     * @param nombre descripción de la tarea
+     * @param prioridad nivel de prioridad definido por el usuario
      */
     public TareaNormal(int id, String nombre, int prioridad) {
         super(id, nombre, prioridad);
     }
 
     /**
-     * Implementación del comportamiento polimórfico.
+     * Devuelve el tipo concreto de tarea.
+     * Este método es utilizado por el sistema para aplicar polimorfismo
+     * sin necesidad de validar con instanceof.
+     *
+     * @return "Normal"
      */
     @Override
     public String tipoTarea() {

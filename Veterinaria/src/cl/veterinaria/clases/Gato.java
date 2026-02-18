@@ -1,4 +1,4 @@
-package Clases;
+package cl.veterinaria.clases;
 
 public class Gato extends Animal{
 	//atributos

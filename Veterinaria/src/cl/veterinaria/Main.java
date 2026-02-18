@@ -1,9 +1,9 @@
 package cl.veterinaria;
 
-import Clases.Animal;
-import Clases.Gato;
-import Clases.Perro;
-import Clases.Pez;
+import cl.veterinaria.clases.Animal;
+import cl.veterinaria.clases.Gato;
+import cl.veterinaria.clases.Perro;
+import cl.veterinaria.clases.Pez;
 
 public class Main {
 	public static void main(String[] args) {

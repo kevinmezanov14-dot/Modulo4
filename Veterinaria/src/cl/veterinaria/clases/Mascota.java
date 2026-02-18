@@ -1,4 +1,4 @@
-package Clases;
+package cl.veterinaria.clases;
 
 /**
  * Interface para definir metodos
